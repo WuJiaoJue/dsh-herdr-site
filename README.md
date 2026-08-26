@@ -39,6 +39,12 @@ you'll see it.
 
 Everything below was captured from one real run — nothing hand-drawn.
 
+**Full lifecycle recording** (18s GIF) — `working` while the turn drives,
+flips to `blocked` when the model parks on an `ask_user_question`, recovers
+after the human answers:
+
+![lifecycle recording](docs/herdr-lifecycle.gif)
+
 **dsh living inside a Herdr pane** — the actual TUI, captured from a headless
 Herdr client attached to a running server: conversation, status bar, sidebar
 tabs and all:
