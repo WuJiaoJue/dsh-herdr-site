@@ -37,12 +37,15 @@ you'll see it.
 
 ## 👀 See it live
 
-![dsh pane in the Herdr agent list](docs/screenshot-agents.png)
+![dsh pane in the Herdr agent list](docs/agents-live-data.png)
 
-*Live `herdr agent list` from a running workspace: the cc-tui pane is
-recognized as a first-class agent (highlighted row) — that recognition is this
-plugin's reports at work. When the model parks on an `ask_user_question`, the
-row flips to an amber `blocked` carrying your configured `blockMessage`.*
+*About this figure: it is a **re-drawn illustration of real output** — the data
+comes verbatim from a live `herdr agent list` on a running workspace (not a
+native screenshot of Herdr's UI; the styling is illustrative). The fact it
+shows is real: the cc-tui pane is recognized as a first-class agent, which is
+this plugin's reports at work. In Herdr's actual interface, when the model
+parks on an `ask_user_question`, that pane shows `blocked` with your
+configured `blockMessage`.*
 
 ## ✨ Features
 
