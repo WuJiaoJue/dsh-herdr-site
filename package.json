@@ -4,6 +4,14 @@
   "description": "DeepSeek Harness custom integration for Herdr (terminal workspace manager): reports agent lifecycle state via `pane report-agent` so Herdr tracks dsh/cc-tui panes as first-class agents.",
   "author": "wujue",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+http://192.168.4.77:3000/dsh-plugins/dsh-herdr-site.git"
+  },
+  "homepage": "http://192.168.4.77:3000/dsh-plugins/dsh-herdr-site",
+  "bugs": {
+    "url": "http://192.168.4.77:3000/dsh-plugins/dsh-herdr-site/issues"
+  },
   "keywords": [
     "dsh",
     "deepseek-harness",
