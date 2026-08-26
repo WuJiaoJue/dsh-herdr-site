@@ -37,14 +37,23 @@ you'll see it.
 
 ## 👀 See it live
 
-![dsh pane in the Herdr agent list](docs/agents-live-data.png)
+All figures are **real command output** rendered with
+[termshot](https://github.com/homeport/termshot), captured during one live run:
+`working` while a turn drives → flips to `blocked` when the model parks on an
+`ask_user_question` → recovers after the human answers.
 
-*Caption: **real output** of `herdr agent list`, rendered as an image with
-[termshot](https://github.com/homeport/termshot) — the data comes verbatim from
-a running Herdr workspace. The cc-tui pane being recognized as a first-class
-agent is this plugin's reports at work; when the model parks on an
-`ask_user_question`, that pane flips to `blocked` with your configured
-`blockMessage`.*
+**Turn in progress** — `herdr agent list`, the cc-tui pane shows `working`:
+
+![working state](docs/agents-live-working.png)
+
+**Waiting on the human** — `herdr agent get`, flipped to `blocked`:
+
+![blocked state](docs/agents-live-blocked.png)
+
+First-class recognition means Herdr's panel jump and `--wait` work for dsh too.
+The moment the model parks on an `ask_user_question`, the pane lights up as
+`blocked` (optionally with your `blockMessage`) — precisely when it most needs
+to be seen.
 
 ## ✨ Features
 

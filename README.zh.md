@@ -29,12 +29,21 @@ English | [简体中文](./README.zh.md)
 
 ## 👀 实际效果
 
-![Herdr agent 列表中的 dsh 面板](docs/agents-live-data.png)
+全部为 [termshot](https://github.com/homeport/termshot) 渲染的**真实命令输出**，
+摄于一次真实运行中：回合进行时 `working` → 模型停在 `ask_user_question` 上时翻转为
+`blocked` → 回答问题后恢复。
 
-*图注：`herdr agent list` 的**真实输出**，经 [termshot](https://github.com/homeport/termshot)
-渲染成图——数据逐字取自一个正在运行的 Herdr 工作区。其中 cc-tui 面板被识别为一等
-agent，正是本插件上报的结果；当模型在 `ask_user_question` 上等你回答时，该面板状态会
-变为 `blocked` 并显示你配置的 `blockMessage`。*
+**回合进行中** —— `herdr agent list`，cc-tui 面板显示 `working`：
+
+![working 状态](docs/agents-live-working.png)
+
+**模型等待用户拍板** —— `herdr agent get`，状态翻转为 `blocked`：
+
+![blocked 状态](docs/agents-live-blocked.png)
+
+被识别为一等 agent 意味着 Herdr 的面板跳转与 `--wait` 对 dsh 同样生效。
+当模型在 `ask_user_question` 上等你回答时，面板会亮起 `blocked`（可选附带
+`blockMessage` 说明原因）——这正是最需要被人看见的时刻。
 
 ## ✨ 核心特性
 
