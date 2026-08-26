@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/logo.png?v=2" width="128" alt="dsh-herdr-site logo"/>
+<img src="docs/logo.png?v=3" width="128" alt="dsh-herdr-site logo"/>
 
 # dsh-herdr-site
 
