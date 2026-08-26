@@ -29,29 +29,16 @@ English | [简体中文](./README.zh.md)
 
 ## 👀 实际效果
 
-全部画面来自一次真实运行的捕获，非手绘。
-
-**完整生命周期实录**（[asciinema](https://asciinema.org) 录制，18 秒动图）——
+**完整生命周期实录**（[asciinema](https://asciinema.org) 录制）——
 提问后回合进行中显示 `working`，模型停在 `ask_user_question` 上时翻转为 `blocked`，
 回答后恢复：
 
 ![生命周期录屏](docs/herdr-lifecycle.gif)
 
-插件把它的生命周期上报给 Herdr。termshot 渲染的命令输出记录了完整状态机：
-回合进行时 `working` → 模型停在 `ask_user_question` 上时翻转为 `blocked` →
-回答问题后恢复。
-
-**回合进行中** —— `herdr agent list`，cc-tui 面板显示 `working`：
-
-![working 状态](docs/agents-live-working.png)
-
-**模型等待用户拍板** —— `herdr agent get`，状态翻转为 `blocked`：
-
-![blocked 状态](docs/agents-live-blocked.png)
-
-被识别为一等 agent 意味着 Herdr 的面板跳转与 `--wait` 对 dsh 同样生效。
-当模型在 `ask_user_question` 上等你回答时，面板会亮起 `blocked`（可选附带
-`blockMessage` 说明原因）——这正是最需要被人看见的时刻。
+动图里的状态全部来自插件的真实上报：回合进行时 `herdr agent list` 会把 cc-tui
+面板显示为 `working`，模型停在问题上时翻转为 `blocked`。被识别为一等 agent 意味着
+Herdr 的面板跳转与 `--wait` 对 dsh 同样生效——当模型等你回答时，面板会亮起
+`blocked`（可选附带 `blockMessage` 说明原因），这正是最需要被人看见的时刻。
 
 ## ✨ 核心特性
 

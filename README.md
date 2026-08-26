@@ -37,31 +37,18 @@ you'll see it.
 
 ## 👀 See it live
 
-Everything below was captured from one real run — nothing hand-drawn.
-
-**Full lifecycle recording** (captured with [asciinema](https://asciinema.org),
-18s GIF) — `working` while the turn drives, flips to `blocked` when the model
-parks on an `ask_user_question`, recovers after the human answers:
+**Full lifecycle recording** (captured with [asciinema](https://asciinema.org))
+— `working` while the turn drives, flips to `blocked` when the model parks on
+an `ask_user_question`, recovers after the human answers:
 
 ![lifecycle recording](docs/herdr-lifecycle.gif)
 
-The plugin reports its lifecycle to Herdr. termshot-rendered command output
-records the full state machine: `working` while a turn drives → flips to
-`blocked` when the model parks on an `ask_user_question` → recovers after the
-human answers.
-
-**Turn in progress** — `herdr agent list`, the cc-tui pane shows `working`:
-
-![working state](docs/agents-live-working.png)
-
-**Waiting on the human** — `herdr agent get`, flipped to `blocked`:
-
-![blocked state](docs/agents-live-blocked.png)
-
-First-class recognition means Herdr's panel jump and `--wait` work for dsh too.
-The moment the model parks on an `ask_user_question`, the pane lights up as
-`blocked` (optionally with your `blockMessage`) — precisely when it most needs
-to be seen.
+The states in the recording come straight from the plugin's real reports:
+while a turn drives, `herdr agent list` shows the cc-tui pane as `working`;
+when the model parks on a question, it flips to `blocked`. First-class
+recognition means Herdr's panel jump and `--wait` work for dsh too — and the
+moment the model waits on you, the pane lights up as `blocked` (optionally
+with your `blockMessage`), precisely when it most needs to be seen.
 
 ## ✨ Features
 
