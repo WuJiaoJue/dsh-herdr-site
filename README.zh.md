@@ -31,8 +31,9 @@ English | [简体中文](./README.zh.md)
 
 全部画面来自一次真实运行的捕获，非手绘。
 
-**完整生命周期实录**（18 秒动图）—— 提问后回合进行中显示 `working`，
-模型停在 `ask_user_question` 上时翻转为 `blocked`，回答后恢复：
+**完整生命周期实录**（[asciinema](https://asciinema.org) 录制，18 秒动图）——
+提问后回合进行中显示 `working`，模型停在 `ask_user_question` 上时翻转为 `blocked`，
+回答后恢复：
 
 ![生命周期录屏](docs/herdr-lifecycle.gif)
 
