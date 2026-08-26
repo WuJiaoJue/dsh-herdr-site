@@ -31,10 +31,10 @@ English | [简体中文](./README.zh.md)
 
 ![Herdr agent 列表中的 dsh 面板](docs/agents-live-data.png)
 
-*上图说明：这是用本机 `herdr agent list` 的**真实输出数据**重新绘制的示意图（非 Herdr
-界面原生截图，样式为示意）。数据本身是实时事实——cc-tui 面板已被识别为一等 agent，
-这正是本插件上报的结果。在 Herdr 真实界面里，当模型在 `ask_user_question` 上等你回答时，
-该面板会显示 `blocked` 并带上你配置的 `blockMessage`。*
+*图注：`herdr agent list` 的**真实输出**，经 [termshot](https://github.com/homeport/termshot)
+渲染成图——数据逐字取自一个正在运行的 Herdr 工作区。其中 cc-tui 面板被识别为一等
+agent，正是本插件上报的结果；当模型在 `ask_user_question` 上等你回答时，该面板状态会
+变为 `blocked` 并显示你配置的 `blockMessage`。*
 
 ## ✨ 核心特性
 
