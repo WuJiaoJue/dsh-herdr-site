@@ -1,0 +1,36 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.07"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- rounded app tile -->
+  <rect x="16" y="16" width="480" height="480" rx="104" fill="url(#bg)"/>
+  <rect x="16" y="16" width="480" height="240" rx="104" fill="url(#glass)"/>
+  <rect x="19" y="19" width="474" height="474" rx="101" fill="none" stroke="#334155" stroke-width="6" opacity="0.9"/>
+
+  <!-- terminal window -->
+  <rect x="108" y="118" width="296" height="210" rx="26" fill="#020617"/>
+  <rect x="111" y="121" width="290" height="204" rx="23" fill="none" stroke="#334155" stroke-width="5"/>
+
+  <!-- window chrome dots -->
+  <circle cx="146" cy="156" r="11" fill="#f87171"/>
+  <circle cx="180" cy="156" r="11" fill="#fbbf24"/>
+  <circle cx="214" cy="156" r="11" fill="#34d399"/>
+
+  <!-- prompt chevron -->
+  <path d="M144 232 l46 42 -46 42" fill="none" stroke="#38bdf8" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- cursor block -->
+  <rect x="212" y="260" width="58" height="15" rx="7.5" fill="#e2e8f0"/>
+
+  <!-- three lifecycle state dots -->
+  <circle cx="188" cy="400" r="21" fill="#10b981"/>
+  <circle cx="256" cy="400" r="21" fill="#64748b"/>
+  <circle cx="324" cy="400" r="21" fill="#f59e0b"/>
+</svg>
