@@ -19,9 +19,21 @@ English | [简体中文](./README.zh.md)
 
 ## 💡 为什么需要它
 
+> [Herdr](https://herdr.dev)（[GitHub: herdrdev/herdr](https://github.com/herdrdev/herdr)）
+> 是一个面向 AI 编码 agent 的终端工作区管理器：把多个 agent 面板聚合在一处，
+> 提供状态总览、面板跳转与 `--wait` 等待编排。它对「谁算 agent」的判定很严格。
+
 - **Herdr 只认内置检测器**：opencode、claude、codex 都在名单里，dsh/cc-tui 不在——于是你的 agent 面板只是个普通终端进程，没有状态、没有跳转、不支持等待。
 - **两态不够用**：dsh 的 `agent/status` 只有 running/idle，而「模型正通过 `ask_user_question` 等你回答」这个最关键的时刻，会被显示成 `working`——看起来在忙，其实在等你。
 - **理想状态**：Herdr 的面板/agent 列表里，你的 dsh agent 与一等公民无异；需要人介入时立刻亮起 `blocked`。
+
+## 👀 实际效果
+
+![Herdr agent 列表中的 dsh 面板](docs/screenshot-agents.png)
+
+*本机 `herdr agent list` 实时数据：cc-tui 面板已被识别为一等 agent（高亮行）——
+这正是本插件上报的结果。当模型在 `ask_user_question` 上等你回答时，这一行会亮起
+琥珀色的 `blocked`，并带上你配置的 `blockMessage`。*
 
 ## ✨ 核心特性
 

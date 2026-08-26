@@ -21,6 +21,11 @@ you'll see it.
 
 ## 💡 Why
 
+> [Herdr](https://herdr.dev) ([GitHub: herdrdev/herdr](https://github.com/herdrdev/herdr))
+> is a terminal workspace manager for AI coding agents: it brings agent panes
+> together with a state overview, panel jumps, and `--wait` orchestration — and
+> it is strict about what counts as an agent.
+
 - **Herdr only trusts its bundled detectors**: opencode, claude, codex are on
   the list — dsh/cc-tui is not. Your agent pane shows up as a plain terminal
   process: no state, no panel jump, no waiting support.
@@ -29,6 +34,15 @@ you'll see it.
   waiting for you — displays as `working`. Busy-looking, actually stuck on you.
 - **The goal**: your dsh agent sits in Herdr's pane/agent lists like a
   first-class citizen, and lights up `blocked` the instant it needs a human.
+
+## 👀 See it live
+
+![dsh pane in the Herdr agent list](docs/screenshot-agents.png)
+
+*Live `herdr agent list` from a running workspace: the cc-tui pane is
+recognized as a first-class agent (highlighted row) — that recognition is this
+plugin's reports at work. When the model parks on an `ask_user_question`, the
+row flips to an amber `blocked` carrying your configured `blockMessage`.*
 
 ## ✨ Features
 
