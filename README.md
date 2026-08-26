@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/logo.png?v=3" width="128" alt="dsh-herdr-site logo"/>
+<img src="docs/logo-lockup.png?v=1" width="360" alt="dsh-herdr-site — herdr ⇄ dsh-TUI"/>
 
 # dsh-herdr-site
 
