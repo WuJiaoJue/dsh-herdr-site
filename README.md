@@ -1,5 +1,7 @@
 # dsh-herdr-site
 
+English | [简体中文](./README.zh.md)
+
 DeepSeek Harness → [Herdr](https://herdr.dev) custom-agent integration.
 
 Herdr treats a pane as a coding agent only when that agent is in its bundled
