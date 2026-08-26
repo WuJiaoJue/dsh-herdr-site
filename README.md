@@ -37,10 +37,18 @@ you'll see it.
 
 ## 👀 See it live
 
-All figures are **real command output** rendered with
-[termshot](https://github.com/homeport/termshot), captured during one live run:
-`working` while a turn drives → flips to `blocked` when the model parks on an
-`ask_user_question` → recovers after the human answers.
+Everything below was captured from one real run — nothing hand-drawn.
+
+**dsh living inside a Herdr pane** — the actual TUI, captured from a headless
+Herdr client attached to a running server: conversation, status bar, sidebar
+tabs and all:
+
+![dsh running in a Herdr pane](docs/dsh-tui-in-herdr.png)
+
+The plugin reports its lifecycle to Herdr. termshot-rendered command output
+records the full state machine: `working` while a turn drives → flips to
+`blocked` when the model parks on an `ask_user_question` → recovers after the
+human answers.
 
 **Turn in progress** — `herdr agent list`, the cc-tui pane shows `working`:
 
