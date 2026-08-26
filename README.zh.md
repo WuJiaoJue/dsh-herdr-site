@@ -37,11 +37,6 @@ English | [简体中文](./README.zh.md)
 
 ![生命周期录屏](docs/herdr-lifecycle.gif)
 
-**dsh 跑在 Herdr 面板里** —— 无头客户端连上 Herdr 后的真实 TUI 画面，
-对话、状态栏、侧栏标签页一应俱全：
-
-![dsh 运行在 Herdr 面板中](docs/dsh-tui-in-herdr.png)
-
 插件把它的生命周期上报给 Herdr。termshot 渲染的命令输出记录了完整状态机：
 回合进行时 `working` → 模型停在 `ask_user_question` 上时翻转为 `blocked` →
 回答问题后恢复。

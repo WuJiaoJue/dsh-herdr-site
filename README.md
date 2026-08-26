@@ -45,12 +45,6 @@ parks on an `ask_user_question`, recovers after the human answers:
 
 ![lifecycle recording](docs/herdr-lifecycle.gif)
 
-**dsh living inside a Herdr pane** — the actual TUI, captured from a headless
-Herdr client attached to a running server: conversation, status bar, sidebar
-tabs and all:
-
-![dsh running in a Herdr pane](docs/dsh-tui-in-herdr.png)
-
 The plugin reports its lifecycle to Herdr. termshot-rendered command output
 records the full state machine: `working` while a turn drives → flips to
 `blocked` when the model parks on an `ask_user_question` → recovers after the
