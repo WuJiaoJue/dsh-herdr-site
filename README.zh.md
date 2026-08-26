@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/logo.png?v=1" width="128" alt="dsh-herdr-site logo"/>
+<img src="docs/logo.png?v=2" width="128" alt="dsh-herdr-site logo"/>
 
 # dsh-herdr-site
 
@@ -72,6 +72,16 @@ dsh 原生只有两态，但 Herdr 有三态。「等用户输入」恰恰是最
   [--message …] [--seq N]
 ……fiber 销毁时调用 `pane release-agent`。
 ```
+
+## 🧩 兼容性
+
+- **Herdr**：遵循官方自定义集成协议（[Integrate your own agent](https://herdr.dev/docs/integrations/)），
+  已在 [herdrdev/herdr](https://github.com/herdrdev/herdr) **v0.8.0** 实测通过；
+  只要支持 `pane report-agent` / `pane release-agent` 的版本均可工作。
+- **DSH**：`cc-tui` 与 `dsh-tui` 两个 profile 即插即用——插件只挂接会话事件总线，不依赖具体 surface 实现。
+- 两个已知边界：① `dsh-tui` profile 目前未装配 `ask_user_question` 工具，
+  因此该 profile 下不会出现 `blocked` 提升（`working`/`idle` 上报不受影响）；
+  ② 上报给 Herdr 的 agent 标签固定为 `cc-tui`。
 
 ## 📦 安装
 

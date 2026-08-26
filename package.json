@@ -18,7 +18,9 @@
     "herdr",
     "cordis",
     "plugin",
-    "agent"
+    "agent",
+    "cc-tui",
+    "dsh-tui"
   ],
   "type": "module",
   "main": "lib/index.js",

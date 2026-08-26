@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/logo.png?v=1" width="128" alt="dsh-herdr-site logo"/>
+<img src="docs/logo.png?v=2" width="128" alt="dsh-herdr-site logo"/>
 
 # dsh-herdr-site
 
@@ -87,6 +87,19 @@ Protocol per the [official herdr docs — Integrate your own agent](https://herd
   [--message …] [--seq N]
 …and `pane release-agent` on fiber disposal.
 ```
+
+## 🧩 Compatibility
+
+- **Herdr**: follows the official custom-integration protocol
+  ([Integrate your own agent](https://herdr.dev/docs/integrations/)); tested
+  against [herdrdev/herdr](https://github.com/herdrdev/herdr) **v0.8.0**. Any
+  version speaking `pane report-agent` / `pane release-agent` works.
+- **DSH**: plugs into both the `cc-tui` and `dsh-tui` profiles — the plugin
+  only hooks the session event bus and knows nothing about surface specifics.
+- Two known edges: ① the `dsh-tui` profile does not ship the
+  `ask_user_question` tool, so the `blocked` lift never fires there
+  (`working`/`idle` reporting is unaffected); ② the agent label reported to
+  Herdr is fixed at `cc-tui`.
 
 ## 📦 Install
 

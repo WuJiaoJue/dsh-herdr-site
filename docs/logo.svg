@@ -15,22 +15,23 @@
   <rect x="16" y="16" width="480" height="240" rx="104" fill="url(#glass)"/>
   <rect x="19" y="19" width="474" height="474" rx="101" fill="none" stroke="#334155" stroke-width="6" opacity="0.9"/>
 
-  <!-- terminal window -->
-  <rect x="108" y="118" width="296" height="210" rx="26" fill="#020617"/>
-  <rect x="111" y="121" width="290" height="204" rx="23" fill="none" stroke="#334155" stroke-width="5"/>
+  <!-- left panel: Herdr agent states -->
+  <rect x="56" y="138" width="198" height="226" rx="26" fill="#020617"/>
+  <rect x="59" y="141" width="192" height="220" rx="23" fill="none" stroke="#334155" stroke-width="5"/>
+  <circle cx="110" cy="251" r="17" fill="#10b981"/>
+  <circle cx="155" cy="251" r="17" fill="#64748b"/>
+  <circle cx="200" cy="251" r="17" fill="#f59e0b"/>
 
-  <!-- window chrome dots -->
-  <circle cx="146" cy="156" r="11" fill="#f87171"/>
-  <circle cx="180" cy="156" r="11" fill="#fbbf24"/>
-  <circle cx="214" cy="156" r="11" fill="#34d399"/>
+  <!-- right panel: dsh TUI prompt -->
+  <rect x="258" y="138" width="198" height="226" rx="26" fill="#0a1a33"/>
+  <rect x="261" y="141" width="192" height="220" rx="23" fill="none" stroke="#38bdf8" stroke-width="5" opacity="0.85"/>
+  <path d="M298 208 l50 44 -50 44" fill="none" stroke="#38bdf8" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="366" y="245" width="52" height="14" rx="7" fill="#e2e8f0"/>
 
-  <!-- prompt chevron -->
-  <path d="M144 232 l46 42 -46 42" fill="none" stroke="#38bdf8" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- cursor block -->
-  <rect x="212" y="260" width="58" height="15" rx="7.5" fill="#e2e8f0"/>
-
-  <!-- three lifecycle state dots -->
-  <circle cx="188" cy="400" r="21" fill="#10b981"/>
-  <circle cx="256" cy="400" r="21" fill="#64748b"/>
-  <circle cx="324" cy="400" r="21" fill="#f59e0b"/>
+  <!-- bridge badge: swap arrows -->
+  <circle cx="256" cy="251" r="42" fill="#10b981" stroke="#0b1220" stroke-width="7"/>
+  <g stroke="#e6fffa" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M234 241 H278 M278 241 l-11 -9 M278 241 l-11 9"/>
+    <path d="M278 263 H234 M234 263 l11 -9 M234 263 l11 9"/>
+  </g>
 </svg>
