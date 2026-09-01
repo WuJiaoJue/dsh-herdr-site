@@ -1,0 +1,15 @@
+# dsh-herdr-site — Herdr custom-agent integration bundle patch.
+#
+# When installed via `dsh plugin --profile cc-tui add <path>` this row is
+# inserted into the profile's Cordis tree. The plugin listens for agent
+# lifecycle transitions and reports them to Herdr through the documented
+# third-party protocol (`pane report-agent`), so a dsh/cc-tui pane appears as
+# a first-class agent (working/idle/blocked, panel jump, wait) instead of an
+# opaque terminal process.
+#
+# The plugin is a no-op unless HERDR_ENV=1; see src/index.ts.
+
+- insert:
+    - id: herdr-site
+      name: 'dsh-herdr-site'
+      config: {}
