@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="docs/logo-lockup.png?v=4" width="360" alt="dsh-herdr-site — herdr ⇄ dsh-TUI"/>
-
 # dsh-herdr-site
 
 Reports dsh/cc-tui agent state to [Herdr](https://herdr.dev).

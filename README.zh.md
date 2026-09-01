@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="docs/logo-lockup.png?v=4" width="360" alt="dsh-herdr-site — herdr ⇄ dsh-TUI"/>
-
 # dsh-herdr-site
 
 把 dsh/cc-tui 的 agent 状态上报给 [Herdr](https://herdr.dev)。
