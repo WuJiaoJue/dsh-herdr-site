@@ -84,7 +84,7 @@ fiber 销毁时调用 `pane release-agent`，不会留下过期条目。上报�
 profile 提供。
 
 ```bash
-dsh plugin --profile cc-tui add git+http://192.168.4.77:3000/dsh-plugins/dsh-herdr-site.git
+dsh plugin --profile cc-tui add github:WuJiaoJue/dsh-herdr-site
 ```
 
 包里声明了 `dsh.bundle.patch` 清单，安装器会自动把它加入 profile 的 bundle
