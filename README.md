@@ -4,12 +4,7 @@
 
 # dsh-herdr-site
 
-**Teach Herdr to speak dsh.**
-
-No more opaque black-box terminals for your dsh/cc-tui panes — `working`,
-`idle`, and `blocked` land in Herdr in real time, with panel jump and `--wait`
-along for the ride. And the moment the model stops to wait for *your* call,
-you'll see it.
+Reports dsh/cc-tui agent state to [Herdr](https://herdr.dev).
 
 [English](./README.md) | 简体中文
 
@@ -19,103 +14,92 @@ you'll see it.
 
 ---
 
-## 💡 Why
+## What it does
 
-> [Herdr](https://herdr.dev) ([GitHub: herdrdev/herdr](https://github.com/herdrdev/herdr))
-> is a terminal workspace manager for AI coding agents: it brings agent panes
-> together with a state overview, panel jumps, and `--wait` orchestration — and
-> it is strict about what counts as an agent.
+Herdr is a terminal workspace manager for AI coding agents. It only recognizes
+agents found by its built-in detectors (opencode, claude, codex, ...);
+dsh/cc-tui is not on that list, so a dsh pane shows up in Herdr as a plain
+terminal process — no state, no panel jump, no `--wait` support.
 
-- **Herdr only trusts its bundled detectors**: opencode, claude, codex are on
-  the list — dsh/cc-tui is not. Your agent pane shows up as a plain terminal
-  process: no state, no panel jump, no waiting support.
-- **Two states aren't enough**: dsh's `agent/status` is just running/idle, so
-  the most important moment — the model parked on an `ask_user_question`
-  waiting for you — displays as `working`. Busy-looking, actually stuck on you.
-- **The goal**: your dsh agent sits in Herdr's pane/agent lists like a
-  first-class citizen, and lights up `blocked` the instant it needs a human.
+This plugin reports the dsh agent's state to Herdr over the official
+custom-integration protocol (`pane report-agent` / `pane release-agent`):
 
-## 👀 See it live
+- `working` while a turn is running
+- `idle` when no driver is active
+- `blocked` when the model is parked on an `ask_user_question`, waiting for input
 
-**Full lifecycle recording** (captured with [asciinema](https://asciinema.org))
-— `working` while the turn drives, flips to `blocked` when the model parks on
-an `ask_user_question`, recovers after the human answers:
+dsh itself only reports running/idle, so the `blocked` state is the main reason
+to use this plugin: the moment the model waits on you shows up in Herdr instead
+of looking like it's busy. It is derived from the session event stream
+(`ask_user_question` `tool/call` / `tool/result`), keyed by `callId`, so
+replayed or out-of-order events stay consistent.
+
+With state reported this way, Herdr's panel jump and `--wait` also work for dsh
+panes. An optional `blockMessage` can be attached to the `blocked` report to
+show why the agent is waiting.
+
+## Demo
+
+Lifecycle recording (captured with [asciinema](https://asciinema.org)): the
+pane shows `working` while a turn runs, flips to `blocked` when the model stops
+on an `ask_user_question`, and recovers once the answer is given.
 
 ![lifecycle recording](docs/herdr-lifecycle.gif)
 
-The states in the recording come straight from the plugin's real reports:
-while a turn drives, `herdr agent list` shows the cc-tui pane as `working`;
-when the model parks on a question, it flips to `blocked`. First-class
-recognition means Herdr's panel jump and `--wait` work for dsh too — and the
-moment the model waits on you, the pane lights up as `blocked` (optionally
-with your `blockMessage`), precisely when it most needs to be seen.
-
-## ✨ Features
-
-### Precise state mapping
+## State mapping
 
 | dsh signal                                     | Herdr state |
 |------------------------------------------------|-------------|
-| `agent/status = running` (driving a turn)      | `working`   |
-| `agent/status = idle` (no driver active)       | `idle`      |
-| `ask_user_question` open (model waits on human)| `blocked`   |
+| `agent/status = running` (turn in progress)    | `working`   |
+| `agent/status = idle` (no active driver)       | `idle`      |
+| `ask_user_question` pending (model waits for input) | `blocked` |
 
-### 🚦 The blocked lift — the whole point
+## How it reports
 
-dsh natively has two states; Herdr has three. "Waiting for user input" is
-precisely the state worth spotlighting: this plugin derives it from the
-**durable session event stream** (`ask_user_question` `tool/call` /
-`tool/result`) and lifts `running → blocked` — replay-safe, no UI-provider
-hooks required, with an optional `blockMessage` that puts the reason right on
-the Herdr pane.
-
-### 🧱 Restrained engineering
-
-- 🙈 **Strict no-op outside Herdr**: outside a Herdr pane nothing is spawned,
-  nothing is read
-- 🔁 **Replay-safe**: blocked tracking keyed by `callId`; out-of-order and
-  replayed event streams stay consistent
-- 📶 **Monotonic seq + dedup**: repeated states never spam; stale reports are
-  dropped by Herdr
-- 🧹 **Clean exit**: `pane release-agent` on fiber disposal — no stale entries
-
-Protocol per the [official herdr docs — Integrate your own agent](https://herdr.dev/docs/integrations/):
+State reports go through Herdr's custom integration protocol:
 
 ```
 "$HERDR_BIN_PATH" pane report-agent "$HERDR_PANE_ID" \
   --source custom:dsh-herdr-site --agent cc-tui --state <working|idle|blocked> \
   [--message …] [--seq N]
-…and `pane release-agent` on fiber disposal.
 ```
 
-## 🧩 Compatibility
+`pane release-agent` is called when the fiber is disposed, so no stale entries
+remain. Reports carry a monotonic sequence number and repeated states are
+deduplicated. Outside a Herdr pane the plugin is a no-op: nothing is spawned,
+nothing is read.
 
-- **Herdr**: follows the official custom-integration protocol
-  ([Integrate your own agent](https://herdr.dev/docs/integrations/)); tested
+## Compatibility
+
+- **Herdr**: uses the official custom-integration protocol
+  ([Integrate your own agent](https://herdr.dev/docs/integrations/)), tested
   against [herdrdev/herdr](https://github.com/herdrdev/herdr) **v0.8.0**. Any
-  version speaking `pane report-agent` / `pane release-agent` works.
-- **DSH**: plugs into both the `cc-tui` and `dsh-tui` profiles — the plugin
-  only hooks the session event bus and knows nothing about surface specifics.
-- Two known edges: ① the `dsh-tui` profile does not ship the
-  `ask_user_question` tool, so the `blocked` lift never fires there
-  (`working`/`idle` reporting is unaffected); ② the agent label reported to
-  Herdr is fixed at `cc-tui`.
+  version that implements `pane report-agent` / `pane release-agent` works.
+- **DSH**: works with both the `cc-tui` and `dsh-tui` profiles — the plugin
+  only hooks the session event bus and is independent of the surface.
 
-## 📦 Install
+Known edges:
 
-Prerequisite: a working [dsh](https://github.com/deepseek-ai/deepseek-harness)
-installation with the `dsh-cc-tui`/`dsh-base` profile — this plugin declares
-the profile's packages (`@deepseek-ai/cordis` at `^4`, `dsh-session`,
+1. The `dsh-tui` profile does not ship the `ask_user_question` tool, so the
+   `blocked` state never fires there (`working`/`idle` reporting is
+   unaffected).
+2. The agent label reported to Herdr is fixed at `cc-tui`.
+
+## Install
+
+Prerequisites: a working [dsh](https://github.com/deepseek-ai/deepseek-harness)
+installation with the `dsh-cc-tui`/`dsh-base` profile. The plugin declares the
+profile's packages (`@deepseek-ai/cordis` at `^4`, `dsh-session`,
 `dsh-agent`) as peer dependencies, supplied by the host profile.
 
 ```bash
 dsh plugin --profile cc-tui add git+http://192.168.4.77:3000/dsh-plugins/dsh-herdr-site.git
 ```
 
-The package declares a `dsh.bundle.patch` manifest, so the installer adds it to
-the profile's bundle layer stack automatically — the bundled
-`cordis.patch.yml` inserts the plugin into every surface the profile boots.
-Repeat for any other profile you use (e.g. `dsh-tui`).
+The package ships a `dsh.bundle.patch` manifest, so the installer adds it to
+the profile's bundle layer stack automatically, and `cordis.patch.yml` inserts
+the plugin into every surface the profile boots. Repeat for any other profile
+you use (e.g. `dsh-tui`).
 
 Verify:
 
@@ -123,12 +107,12 @@ Verify:
 dsh --profile cc-tui --dump-config | grep -A2 herdr-site
 ```
 
-Installing from a local checkout works too:
+Installing from a local checkout also works:
 `dsh plugin --profile cc-tui add /path/to/dsh-herdr-site`
 
-## ⚙️ Configure
+## Configuration
 
-Optional `blockMessage` override, sent with the `blocked` report:
+Optional `blockMessage`, sent with the `blocked` report:
 
 ```yaml
 # in the profile's cordis.patch.yml, or a --patch overlay
@@ -137,7 +121,7 @@ Optional `blockMessage` override, sent with the `blocked` report:
     blockMessage: '模型等待你的回答'
 ```
 
-## 🔨 Build & test
+## Build & test
 
 ```bash
 npm install            # dev: @types/node
@@ -146,26 +130,25 @@ npm test               # behavioral assertions against a stub herdr CLI
 npx tsc --noEmit       # type check
 ```
 
-Git installs need no build step: `lib/` is committed — pnpm blocks `prepare`
-scripts by default, so depending on an install-time build would break installs
+Git installs need no build step: `lib/` is committed. pnpm blocks `prepare`
+scripts by default, so relying on an install-time build would break installs
 out of the box.
 
-`test/smoke.mjs` drives the compiled plugin through the full lifecycle on a
-real cordis context — working/blocked/idle transitions, dedup, seq ordering,
+`test/smoke.mjs` runs the compiled plugin through the full lifecycle on a real
+cordis context — working/blocked/idle transitions, dedup, seq ordering,
 unrelated tool results, release-on-dispose — asserting every emitted CLI
 invocation against a stub `herdr` binary.
 
-## 🛠️ Local development notes
+## Local development notes
 
-Developing against live profiles with a plain `file:` dependency has two
-gotchas (both hit in practice):
+Developing against a live profile with a plain `file:` dependency has two
+gotchas (both encountered in practice):
 
 1. A `file:` dep copies content at install time — re-run `pnpm install` in the
    profile after every rebuild, or the profile keeps running the stale copy.
 2. With the dependency installed as a bundle layer *and* a manual insert row,
-   bare-name activation was observed to be silently skipped; pointing the
-   insert row's `name:` at the absolute `lib/index.js` path is the reliable
-   dev-only wiring:
+   bare-name activation was silently skipped; pointing the insert row's
+   `name:` at the absolute `lib/index.js` path is the reliable dev-only wiring:
 
    ```yaml
    - insert:
@@ -180,18 +163,17 @@ gotchas (both hit in practice):
 Neither applies to the standard `dsh plugin add` flow described under Install,
 which resolves the bundled patch's bare package name correctly.
 
-## ⚠️ Limitations
+## Limitations
 
-- Herdr's *automatic process detection* still won't recognize a dsh process as
-  an agent on its own (that needs a Herdr-bundled detector update). This
-  plugin reports state, which is what Herdr's custom-integration path covers;
-  combined with detectorless custom reporting, Herdr shows correct
-  working/idle/blocked, panel jump, and wait.
+- Herdr's automatic process detection still won't recognize a dsh process as
+  an agent on its own (that requires a Herdr-bundled detector update). This
+  plugin reports state through the custom-integration path, which gives Herdr
+  correct working/idle/blocked, panel jump, and wait without a detector.
 - The optional `--agent-session-id` reference is not wired, so Herdr's
   pane/agent APIs don't expose the linked dsh session id. Automatic session
-  restore additionally requires Herdr to know how to launch dsh — not covered
-  here. State reporting is the unconditional win either way.
+  restore would additionally require Herdr to know how to launch dsh, which is
+  out of scope here. State reporting works regardless.
 
-## 📄 License
+## License
 
 [MIT](./LICENSE)
