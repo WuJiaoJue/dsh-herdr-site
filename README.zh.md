@@ -83,6 +83,14 @@ fiber 销毁时调用 `pane release-agent`，不会留下过期条目。上报�
 `@deepseek-ai/cordis`、`dsh-session`、`dsh-agent`）声明为 peer 依赖，由宿主
 profile 提供。
 
+**npm 安装（推荐，预构建产物，无需授权）：**
+
+```bash
+dsh plugin --profile cc-tui add dsh-herdr-site
+```
+
+或从 GitHub 安装：
+
 ```bash
 dsh plugin --profile cc-tui add github:WuJiaoJue/dsh-herdr-site
 ```

@@ -90,6 +90,14 @@ installation with the `dsh-cc-tui`/`dsh-base` profile. The plugin declares the
 profile's packages (`@deepseek-ai/cordis` at `^4`, `dsh-session`,
 `dsh-agent`) as peer dependencies, supplied by the host profile.
 
+**From npm (recommended — prebuilt, no approval needed):**
+
+```bash
+dsh plugin --profile cc-tui add dsh-herdr-site
+```
+
+Or install from GitHub:
+
 ```bash
 dsh plugin --profile cc-tui add github:WuJiaoJue/dsh-herdr-site
 ```
